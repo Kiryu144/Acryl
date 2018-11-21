@@ -6,7 +6,7 @@
 int main(int argc, char** argv) {
     Acryl::Window window("Acryl!");
 
-    Acryl::GLShaderCompiler shaderCompiler("chunk.vert", "chunk.frag", false);
+    Acryl::GLShaderCompiler shaderCompiler("basic123.vert", "basic.frag", false);
     GLuint programID = shaderCompiler.compileAndLink();
 
     float dummyData[] = {
@@ -16,6 +16,10 @@ int main(int argc, char** argv) {
     };
 
     Acryl::VertexBufferObject dummyVBO(dummyData, 9*sizeof(float));
+
+    while(!window.quitRequested()){
+        window.swap();
+    }
 
     return 0;
 }

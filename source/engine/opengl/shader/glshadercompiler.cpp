@@ -20,6 +20,9 @@ GLShaderCompiler::GLShaderCompiler(const std::string& vertex, const std::string&
         }catch(const std::ifstream::failure& e){
             std::cerr << "Could not read fragment file " << vertex << std::endl;
         }
+    }else{
+        mVertexShader = vertex;
+        mFragmentShader = fragment;
     }
 }
 
@@ -48,6 +51,10 @@ GLShaderCompiler::GLShaderCompiler(const std::string& vertex, const std::string&
         }catch(const std::ifstream::failure& e){
             std::cerr << "Could not read geometry file " << vertex << std::endl;
         }
+    }else{
+        mVertexShader = vertex;
+        mFragmentShader = fragment;
+        mGeometryShader = geometry;
     }
 }
 
