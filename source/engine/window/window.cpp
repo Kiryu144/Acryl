@@ -59,4 +59,18 @@ unsigned int Window::getHeigth() const {
     return mHeigth;
 }
 
+/***
+ * @return True if quitting is requested by the OS or the user
+ */
+bool Window::quitRequested() const {
+    return SDL_QuitRequested();
+}
+
+/***
+ * @brief Swaps the current drawing buffer
+ */
+void Window::swap() const {
+    SDL_GL_SwapWindow(mSdlWindow);
+}
+
 }

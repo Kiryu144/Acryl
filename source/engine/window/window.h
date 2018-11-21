@@ -25,6 +25,8 @@ public:
     const std::string& getWindowTitle() const;
     unsigned int getWidth() const;
     unsigned int getHeigth() const;
+    bool quitRequested() const;
+    void swap() const;
 };
 
 }
