@@ -31,6 +31,7 @@ Shader::Shader(const std::string& vertex, const std::string& fragment, bool isSo
     }
 
     mProgramID = compileAndLink();
+    cacheUniformLocations();
 }
 
 /**
@@ -63,6 +64,9 @@ Shader::Shader(const std::string& vertex, const std::string& fragment, const std
         mFragmentShader = fragment;
         mGeometryShader = geometry;
     }
+
+    mProgramID = compileAndLink();
+    cacheUniformLocations();
 }
 
 
