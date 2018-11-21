@@ -9,6 +9,5 @@ int main(int argc, char** argv) {
     GLuint programID = shaderCompiler.compileAndLink();
 
 
-
     return 0;
 }
