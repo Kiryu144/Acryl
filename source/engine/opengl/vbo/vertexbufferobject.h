@@ -10,11 +10,15 @@ class VertexBufferObject {
 private:
     GLint mSizeInMemory;
     GLuint mVBO;
+    GLint mSizePerElement;
 public:
-    VertexBufferObject(void* data, GLint dataSize);
+    VertexBufferObject(void* data, GLint dataSize, GLint sizePerElement);
     ~VertexBufferObject();
 
-    void bindVertexAttribArray(GLuint location);
+    VertexBufferObject(const VertexBufferObject& other) = delete;
+
+    void bindVertexAttribArray(GLuint location) const;
+    unsigned int getVerticeAmount() const;
 };
 
 }
