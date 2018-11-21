@@ -9,7 +9,18 @@ include_directories(${PROJECT_SOURCE_DIR}/external/include/)
 link_directories(${PROJECT_SOURCE_DIR}/external/lib/SDL2/)
 link_directories(${PROJECT_SOURCE_DIR}/external/lib/GLEW/)
 
-file(GLOB_RECURSE SOURCE_FILES source/*)
+set(SOURCE_FILES
+    source/test/main.cpp
+    source/engine/window/window.h
+    source/engine/window/window.cpp
+    source/engine/util/util.h
+    source/engine/util/util.cpp
+    source/engine/opengl/shader/shader.h
+    source/engine/opengl/shader/shader.cpp
+    source/engine/opengl/vbo/vertexbufferobject.cpp
+    source/engine/opengl/vbo/vertexbufferobject.cpp
+)
+#file(GLOB_RECURSE SOURCE_FILES source/*)
 
 add_executable(Acryl ${SOURCE_FILES})
 
