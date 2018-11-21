@@ -5,10 +5,10 @@
  * @param dataSize The complete size of the data array
  * @param type The type of data array passed. eg. GL_FLOAT
  */
-Acryl::VertexBufferObject::VertexBufferObject(void* data, GLint dataSize, GLenum type)
-    : mSizeInMemory(dataSize),  mType(type) {
+Acryl::VertexBufferObject::VertexBufferObject(void* data, GLint dataSize)
+    : mSizeInMemory(dataSize) {
     glGenBuffers(1, &mVBO);
-    glBindBuffer(1, mVBO);
+    glBindBuffer(GL_ARRAY_BUFFER, mVBO);
     glBufferData(GL_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
 }
 
@@ -23,6 +23,5 @@ Acryl::VertexBufferObject::~VertexBufferObject() {
 void Acryl::VertexBufferObject::bindVertexAttribArray(GLuint location) {
     glEnableVertexAttribArray(location);
     glBindBuffer(GL_ARRAY_BUFFER, mVBO);
-    glVertexAttribPointer(location, mSizeInMemory, mType, GL_FALSE, 0, nullptr);
-    glEnableVertexAttribArray(location);
+    glVertexAttribPointer(location, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 }
