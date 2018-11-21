@@ -21,6 +21,9 @@ Window::Window(const std::string& title, unsigned int width, unsigned int heigth
     //Create context and bind it
     mContext = SDL_GL_CreateContext(mSdlWindow); //Create new context for window
 
+    //Load SDL_Image
+    IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_TIF | IMG_INIT_WEBP);
+
     //Some OpenGL related settings
     glewExperimental = GL_TRUE;
     GLenum err = glewInit();
