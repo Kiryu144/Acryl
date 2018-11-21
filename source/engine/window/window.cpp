@@ -2,6 +2,11 @@
 
 namespace Acryl {
 
+/***
+ * @param title The window title
+ * @param width The window width in pixels
+ * @param heigth The window heigth in pixels
+ */
 Window::Window(const std::string& title, unsigned int width, unsigned int heigth)
     : mWindowTitle(title), mWidth(width), mHeigth(heigth), mSdlWindow(nullptr) {
     SDL_Init(SDL_INIT_VIDEO);
@@ -16,6 +21,9 @@ Window::Window(const std::string& title, unsigned int width, unsigned int heigth
     //Create context and bind it
     mContext = SDL_GL_CreateContext(mSdlWindow); //Create new context for window
 
+    //Load SDL_Image
+    IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_TIF | IMG_INIT_WEBP);
+
     //Some OpenGL related settings
     glewExperimental = GL_TRUE;
     GLenum err = glewInit();
@@ -28,10 +36,16 @@ Window::~Window() {
     SDL_DestroyWindow(mSdlWindow);
 }
 
+/***
+ * @brief Hides the window, still visible in the task-manager of course
+ */
 void Window::hide() {
     SDL_HideWindow(mSdlWindow);
 }
 
+/***
+ * @brief Shows the window back if it has been hidden before
+ */
 void Window::show() {
     SDL_ShowWindow(mSdlWindow);
 }
@@ -46,6 +60,20 @@ unsigned int Window::getWidth() const {
 
 unsigned int Window::getHeigth() const {
     return mHeigth;
+}
+
+/***
+ * @return True if quitting is requested by the OS or the user
+ */
+bool Window::quitRequested() const {
+    return SDL_QuitRequested();
+}
+
+/***
+ * @brief Swaps the current drawing buffer
+ */
+void Window::swap() const {
+    SDL_GL_SwapWindow(mSdlWindow);
 }
 
 }

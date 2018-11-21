@@ -3,6 +3,7 @@
 
 #include <string>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <GLEW/glew.h>
 #include <iostream>
 
@@ -25,6 +26,8 @@ public:
     const std::string& getWindowTitle() const;
     unsigned int getWidth() const;
     unsigned int getHeigth() const;
+    bool quitRequested() const;
+    void swap() const;
 };
 
 }
