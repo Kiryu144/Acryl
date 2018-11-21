@@ -2,6 +2,11 @@
 
 namespace Acryl {
 
+/***
+ * @param title The window title
+ * @param width The window width in pixels
+ * @param heigth The window heigth in pixels
+ */
 Window::Window(const std::string& title, unsigned int width, unsigned int heigth)
     : mWindowTitle(title), mWidth(width), mHeigth(heigth), mSdlWindow(nullptr) {
     SDL_Init(SDL_INIT_VIDEO);
@@ -28,10 +33,16 @@ Window::~Window() {
     SDL_DestroyWindow(mSdlWindow);
 }
 
+/***
+ * @brief Hides the window, still visible in the task-manager of course
+ */
 void Window::hide() {
     SDL_HideWindow(mSdlWindow);
 }
 
+/***
+ * @brief Shows the window back if it has been hidden before
+ */
 void Window::show() {
     SDL_ShowWindow(mSdlWindow);
 }
