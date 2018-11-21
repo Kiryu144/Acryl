@@ -5,7 +5,7 @@
 #include <iostream>
 #include <GLEW/glew.h>
 
-#include "../util/util.h"
+#include "../../util/util.h"
 
 namespace Acryl {
 
