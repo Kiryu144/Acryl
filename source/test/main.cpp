@@ -2,6 +2,7 @@
 #include "../engine/opengl/shader/shader.h"
 #include "../engine/opengl/vbo/vertexbufferobject.h"
 #include "../engine/opengl/texture/texture.h"
+#include "../engine/math/transformation.h"
 
 
 int main(int argc, char** argv) {
@@ -35,6 +36,8 @@ int main(int argc, char** argv) {
     Acryl::VertexBufferObject vertices(plane, 18*sizeof(float), 3);
     Acryl::VertexBufferObject uv(plane_uv, 12*sizeof(float), 2);
 
+    Acryl::Transformation transformation(glm::vec3(0), glm::vec3(0, 0, M_PI), glm::vec3(1));
+
     Acryl::Texture __texture("./Image1.png");
 
     while(!window.quitRequested()){
@@ -44,6 +47,7 @@ int main(int argc, char** argv) {
         texture.bindProgram();
         __texture.bindTexture(0);
         texture.setUniform("sampler", __texture.getTextID());
+        texture.setUniform("model", transformation.getMatrix());
         vertices.bindVertexAttribArray(0);
         uv.bindVertexAttribArray(1);
         glDrawArrays(GL_TRIANGLES, 0, vertices.getVerticeAmount());
