@@ -9,11 +9,22 @@ namespace Acryl {
  * @param far Far clipping
  * @param fov The field of view. Should normally be between 60 and 120
  * @param transformation Camera transformation
+ * @param window The window to gather the width and heigth from
  */
-Camera::Camera(const CameraType& type, float near, float far, float fov, const Transformation& transformation, Window* window)
-    : mCameraType(type), mClipNear(near), mClipFar(far), mFov(fov), mTransformation(transformation) {
+Camera::Camera(const CameraType& type, float near, float far, float fov, const Transformation& transformation, const Window& window)
+    : mCameraType(type), mClipNear(near), mClipFar(far), mFov(fov), mTransformation(transformation), mWidth(window.getWidth()), mHeigth(window.getHeigth()) {
+    updateMatrices();
 }
 
+/**
+ * @param type Projection type. Used for the projection matrix calculations.
+ * @param near Near clipping
+ * @param far Far clipping
+ * @param fov The field of view. Should normally be between 60 and 120
+ * @param transformation Camera transformation
+ * @param width The width the screen is the camera is in
+ * @param width The heigth the screen is the camera is in
+ */
 Camera::Camera(const CameraType& type, float near, float far, float fov, const Transformation& transformation, int width, int heigth)
     : mCameraType(type), mClipNear(near), mClipFar(far), mFov(fov), mTransformation(transformation), mWidth(width), mHeigth(heigth) {
     updateMatrices();

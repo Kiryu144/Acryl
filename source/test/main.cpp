@@ -41,8 +41,8 @@ int main(int argc, char** argv) {
 
     Acryl::Texture __texture("./Image1.png");
 
-    Acryl::Camera camera(Acryl::CameraType::PERSPECTIVE, 0.001, 100.0, 40, Acryl::Transformation(glm::vec3(0, 0, -1.2)));
-    camera.updateMatrices(window.getWidth(), window.getHeigth());
+    Acryl::Camera camera(Acryl::CameraType::PERSPECTIVE, 0.001, 100.0, 40, Acryl::Transformation(glm::vec3(0, 0, -1.2)), window);
+    camera.updateMatrices();
 
     while(!window.quitRequested()){
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);

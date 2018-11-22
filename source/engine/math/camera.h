@@ -23,7 +23,7 @@ protected:
     Transformation mTransformation;
 
 public:
-    Camera(const CameraType& type, float near, float far, float fov, const Transformation& transformation, Window* window);
+    Camera(const CameraType& type, float near, float far, float fov, const Transformation& transformation, const Window& window);
     Camera(const CameraType& type, float near, float far, float fov, const Transformation& transformation, int width, int heigth);
 
     void updateMatrices();
