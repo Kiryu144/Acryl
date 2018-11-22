@@ -34,12 +34,11 @@ public:
     float getFov() const;
     const glm::mat4& getProjection() const;
     const glm::mat4& getView() const;
-    const Transformation& getTransformation() const;
+    Transformation& getTransformation();
 
     void setClipNear(float clipNear);
     void setClipFar(float clipFar);
     void setFov(float fov);
-    void setTransformation(const Transformation& transformation);
 };
 
 }

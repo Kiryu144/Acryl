@@ -71,7 +71,7 @@ const glm::mat4& Camera::getView() const {
     return mView;
 }
 
-const Transformation& Camera::getTransformation() const {
+Transformation& Camera::getTransformation() {
     return mTransformation;
 }
 
@@ -86,11 +86,6 @@ void Camera::setClipFar(float clipFar) {
 void Camera::setFov(float fov) {
     mFov = fov;
 }
-
-void Camera::setTransformation(const Transformation& transformation) {
-    mTransformation = transformation;
-}
-
 
 
 }
