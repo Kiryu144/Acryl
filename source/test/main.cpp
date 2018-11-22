@@ -56,9 +56,6 @@ int main(int argc, char** argv) {
         uv.bindVertexAttribArray(1);
         glDrawArrays(GL_TRIANGLES, 0, vertices.getVerticeAmount());
 
-        camera.setTransformation(Acryl::Transformation(glm::vec3(0, 0, sin(SDL_GetTicks()/500.0f)-1 )));
-        camera.updateMatrices(window.getWidth(), window.getHeigth());
-
 
         window.swap();
     }

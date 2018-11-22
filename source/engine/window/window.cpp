@@ -16,7 +16,7 @@ Window::Window(const std::string& title, unsigned int width, unsigned int heigth
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
-    mSdlWindow = SDL_CreateWindow(mWindowTitle.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, mWidth, mHeigth, SDL_WINDOW_OPENGL);
+    mSdlWindow = SDL_CreateWindow(mWindowTitle.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, mWidth, mHeigth, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 
     //Create context and bind it
     mContext = SDL_GL_CreateContext(mSdlWindow); //Create new context for window
