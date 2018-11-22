@@ -11,6 +11,12 @@
 
 namespace Acryl {
 
+enum class TransformationChange : char {
+    POSITION,
+    ROTATION,
+    SCALE
+};
+
 class Transformation {
 private:
     glm::vec3 mPosition;
