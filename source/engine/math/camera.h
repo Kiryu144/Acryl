@@ -5,6 +5,7 @@
 #include <GLM/gtc/matrix_transform.hpp>
 
 #include "transformation.h"
+#include "../window/window.h"
 
 
 namespace Acryl {
@@ -17,15 +18,15 @@ enum class CameraType : char {
 class Camera {
 protected:
     const CameraType mCameraType;
-    float mClipNear, mClipFar, mFov;
+    float mClipNear, mClipFar, mFov, mWidth, mHeigth;
     glm::mat4 mProjection, mView;
     Transformation mTransformation;
 
-
 public:
-    Camera(const CameraType& type, float near, float far, float fov, const Transformation& transformation);
+    Camera(const CameraType& type, float near, float far, float fov, const Transformation& transformation, Window* window);
+    Camera(const CameraType& type, float near, float far, float fov, const Transformation& transformation, int width, int heigth);
 
-    void updateMatrices(float width, float heigth);
+    void updateMatrices();
 
     const CameraType getCameraType() const;
     float getClipNear() const;

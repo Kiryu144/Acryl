@@ -10,18 +10,22 @@ namespace Acryl {
  * @param fov The field of view. Should normally be between 60 and 120
  * @param transformation Camera transformation
  */
-Camera::Camera(const CameraType& type, float near, float far, float fov, const Transformation& transformation)
-    : mCameraType(type), mClipNear(near), mClipFar(far), mFov(fov), mTransformation(transformation) { }
+Camera::Camera(const CameraType& type, float near, float far, float fov, const Transformation& transformation, Window* window)
+    : mCameraType(type), mClipNear(near), mClipFar(far), mFov(fov), mTransformation(transformation) {
+}
+
+Camera::Camera(const CameraType& type, float near, float far, float fov, const Transformation& transformation, int width, int heigth)
+    : mCameraType(type), mClipNear(near), mClipFar(far), mFov(fov), mTransformation(transformation), mWidth(width), mHeigth(heigth) {
+    updateMatrices();
+}
 
 /**
  * @brief Updates the projection and the view matrix
- * @param width The width specified. Should normally be the window width
- * @param heigth The heigth specified. Should normally be the window heigth
  */
-void Camera::updateMatrices(float width, float heigth) {
+void Camera::updateMatrices() {
     switch(mCameraType){
-        case CameraType::ORTHOGRAPHIC: mProjection = glm::ortho(0.0f, width, heigth, 0.0f, mClipNear, mClipFar); break;
-        case CameraType::PERSPECTIVE:  mProjection = glm::perspective(glm::radians(mFov), width/heigth, mClipNear, mClipFar);  break;
+        case CameraType::ORTHOGRAPHIC: mProjection = glm::ortho(0.0f, mWidth, mHeigth, 0.0f, mClipNear, mClipFar); break;
+        case CameraType::PERSPECTIVE:  mProjection = glm::perspective(glm::radians(mFov), mWidth/mHeigth, mClipNear, mClipFar);  break;
     }
 
     glm::vec3 front;
@@ -75,5 +79,7 @@ void Camera::setFov(float fov) {
 void Camera::setTransformation(const Transformation& transformation) {
     mTransformation = transformation;
 }
+
+
 
 }
