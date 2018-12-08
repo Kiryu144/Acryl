@@ -1,6 +1,6 @@
 #include <ctime>
 #define GLM_ENABLE_EXPERIMENTAL
-#include <glm/gtx/string_cast.hpp>
+#include <GLM/gtx/string_cast.hpp>
 
 #include "../engine/window/window.h"
 #include "../engine/opengl/shader/shader.h"

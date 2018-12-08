@@ -5,10 +5,10 @@ namespace Acryl {
 /***
  * @param title The window title
  * @param width The window width in pixels
- * @param heigth The window heigth in pixels
+ * @param height The window heigth in pixels
  */
-Window::Window(const std::string& title, unsigned int width, unsigned int heigth)
-    : mWindowTitle(title), mWidth(width), mHeigth(heigth), mSdlWindow(nullptr) {
+Window::Window(const std::string& title, unsigned int width, unsigned int height)
+    : m_windowTitle(title), m_width(width), m_height(height), m_sdlWindow(nullptr) {
     SDL_Init(SDL_INIT_VIDEO);
 
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -16,10 +16,10 @@ Window::Window(const std::string& title, unsigned int width, unsigned int heigth
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
-    mSdlWindow = SDL_CreateWindow(mWindowTitle.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, mWidth, mHeigth, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+    m_sdlWindow = SDL_CreateWindow(m_windowTitle.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_width, m_height, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 
     //Create context and bind it
-    mContext = SDL_GL_CreateContext(mSdlWindow); //Create new context for window
+    m_context = SDL_GL_CreateContext(m_sdlWindow); //Create new context for window
 
     //Load SDL_Image
     IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_TIF | IMG_INIT_WEBP);
@@ -33,33 +33,33 @@ Window::Window(const std::string& title, unsigned int width, unsigned int heigth
 }
 
 Window::~Window() {
-    SDL_DestroyWindow(mSdlWindow);
+    SDL_DestroyWindow(m_sdlWindow);
 }
 
 /***
  * @brief Hides the window, still visible in the task-manager of course
  */
 void Window::hide() {
-    SDL_HideWindow(mSdlWindow);
+    SDL_HideWindow(m_sdlWindow);
 }
 
 /***
  * @brief Shows the window back if it has been hidden before
  */
 void Window::show() {
-    SDL_ShowWindow(mSdlWindow);
+    SDL_ShowWindow(m_sdlWindow);
 }
 
 const std::string& Window::getWindowTitle() const {
-    return mWindowTitle;
+    return m_windowTitle;
 }
 
 unsigned int Window::getWidth() const {
-    return mWidth;
+    return m_width;
 }
 
 unsigned int Window::getHeigth() const {
-    return mHeigth;
+    return m_height;
 }
 
 /***
@@ -73,7 +73,7 @@ bool Window::quitRequested() const {
  * @brief Swaps the current drawing buffer
  */
 void Window::swap() const {
-    SDL_GL_SwapWindow(mSdlWindow);
+    SDL_GL_SwapWindow(m_sdlWindow);
 }
 
 }

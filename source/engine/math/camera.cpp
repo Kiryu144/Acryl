@@ -12,7 +12,7 @@ namespace Acryl {
  * @param window The window to gather the width and heigth from
  */
 Camera::Camera(const CameraType& type, float near, float far, float fov, const Transformation& transformation, const Window& window)
-    : mCameraType(type), mClipNear(near), mClipFar(far), mFov(fov), mTransformation(transformation), mWidth(window.getWidth()), mHeigth(window.getHeigth()) {
+    : m_cameraType(type), m_clipNear(near), m_clipFar(far), m_fov(fov), m_transformation(transformation), m_width(window.getWidth()), m_height(window.getHeigth()) {
     updateMatrices();
 }
 
@@ -25,8 +25,8 @@ Camera::Camera(const CameraType& type, float near, float far, float fov, const T
  * @param width The width the screen is the camera is in
  * @param width The heigth the screen is the camera is in
  */
-Camera::Camera(const CameraType& type, float near, float far, float fov, const Transformation& transformation, int width, int heigth)
-    : mCameraType(type), mClipNear(near), mClipFar(far), mFov(fov), mTransformation(transformation), mWidth(width), mHeigth(heigth) {
+Camera::Camera(const CameraType& type, float near, float far, float fov, const Transformation& transformation, int width, int height)
+    : m_cameraType(type), m_clipNear(near), m_clipFar(far), m_fov(fov), m_transformation(transformation), m_width(width), m_height(height) {
     updateMatrices();
 }
 
@@ -34,57 +34,57 @@ Camera::Camera(const CameraType& type, float near, float far, float fov, const T
  * @brief Updates the projection and the view matrix
  */
 void Camera::updateMatrices() {
-    switch(mCameraType){
-        case CameraType::ORTHOGRAPHIC: mProjection = glm::ortho(0.0f, mWidth, mHeigth, 0.0f, mClipNear, mClipFar); break;
-        case CameraType::PERSPECTIVE:  mProjection = glm::perspective(glm::radians(mFov), mWidth/mHeigth, mClipNear, mClipFar);  break;
+    switch(m_cameraType){
+        case CameraType::ORTHOGRAPHIC: m_projection = glm::ortho(0.0f, m_width, m_height, 0.0f, m_clipNear, m_clipFar); break;
+        case CameraType::PERSPECTIVE:  m_projection = glm::perspective(glm::radians(m_fov), m_width/m_height, m_clipNear, m_clipFar);  break;
     }
 
     glm::vec3 front;
-    front.x = std::cos(glm::radians(mTransformation.getRotation().x)) * std::cos(glm::radians(mTransformation.getRotation().y));
-    front.y = std::sin(glm::radians(mTransformation.getRotation().x));
-    front.z = std::cos(glm::radians(mTransformation.getRotation().x)) * std::sin(glm::radians(mTransformation.getRotation().y));
+    front.x = std::cos(glm::radians(m_transformation.getRotation().x)) * std::cos(glm::radians(m_transformation.getRotation().y));
+    front.y = std::sin(glm::radians(m_transformation.getRotation().x));
+    front.z = std::cos(glm::radians(m_transformation.getRotation().x)) * std::sin(glm::radians(m_transformation.getRotation().y));
 
-    mView = glm::lookAt(mTransformation.getPosition(), mTransformation.getPosition() + front, glm::vec3(0.0f, 1.0f, 0.0f));
+    m_view = glm::lookAt(m_transformation.getPosition(), m_transformation.getPosition() + front, glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
 const CameraType Camera::getCameraType() const {
-    return mCameraType;
+    return m_cameraType;
 }
 
 float Camera::getClipNear() const {
-    return mClipNear;
+    return m_clipNear;
 }
 
 float Camera::getClipFar() const {
-    return mClipFar;
+    return m_clipFar;
 }
 
 float Camera::getFov() const {
-    return mFov;
+    return m_fov;
 }
 
 const glm::mat4& Camera::getProjection() const {
-    return mProjection;
+    return m_projection;
 }
 
 const glm::mat4& Camera::getView() const {
-    return mView;
+    return m_view;
 }
 
 Transformation& Camera::getTransformation() {
-    return mTransformation;
+    return m_transformation;
 }
 
 void Camera::setClipNear(float clipNear) {
-    mClipNear = clipNear;
+    m_clipNear = clipNear;
 }
 
 void Camera::setClipFar(float clipFar) {
-    mClipFar = clipFar;
+    m_clipFar = clipFar;
 }
 
 void Camera::setFov(float fov) {
-    mFov = fov;
+    m_fov = fov;
 }
 
 

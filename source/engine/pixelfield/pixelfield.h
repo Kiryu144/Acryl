@@ -8,8 +8,8 @@ namespace Acryl{
 
 class PixelField {
 private:
-    int mWidth, mHeight;
-    glm::tvec4<unsigned char>* mData = nullptr;
+    int m_width, m_height;
+    glm::tvec4<unsigned char>* m_data = nullptr;
 public:
     PixelField(int width, int height);
     ~PixelField();

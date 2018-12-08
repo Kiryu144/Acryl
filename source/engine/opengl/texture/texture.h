@@ -15,8 +15,8 @@ namespace Acryl {
 
 class Texture {
 private:
-    GLuint mTextID;
-    glm::vec2 mSize;
+    GLuint m_textureID;
+    glm::vec2 m_size;
 
     void uploadImageData(void* imageData, unsigned int width, unsigned int heigth, GLenum format);
 public:

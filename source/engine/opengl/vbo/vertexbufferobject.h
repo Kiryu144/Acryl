@@ -8,9 +8,9 @@ namespace Acryl {
 
 class VertexBufferObject {
 private:
-    GLint mSizeInMemory;
-    GLuint mVBO;
-    GLint mSizePerElement;
+    GLint m_sizeInMemory;
+    GLuint m_vbo;
+    GLint m_sizePerElement;
 public:
     VertexBufferObject(void* data, GLint dataSize, GLint sizePerElement);
     ~VertexBufferObject();

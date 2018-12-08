@@ -7,14 +7,14 @@
  * @param size The size per vertice. So for a 3D point it would be '3'; for uv '2'; and so on ..
  */
 Acryl::VertexBufferObject::VertexBufferObject(void* data, GLint dataSize, GLint sizePerElement)
-    : mSizeInMemory(dataSize), mSizePerElement(sizePerElement) {
-    glGenBuffers(1, &mVBO);
-    glBindBuffer(GL_ARRAY_BUFFER, mVBO);
+    : m_sizeInMemory(dataSize), m_sizePerElement(sizePerElement) {
+    glGenBuffers(1, &m_vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
     glBufferData(GL_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
 }
 
 Acryl::VertexBufferObject::~VertexBufferObject() {
-    glDeleteBuffers(1, &mVBO);
+    glDeleteBuffers(1, &m_vbo);
 }
 
 /***
@@ -22,7 +22,7 @@ Acryl::VertexBufferObject::~VertexBufferObject() {
  * @return The number of vertices present
  */
 unsigned int Acryl::VertexBufferObject::getVerticeAmount() const {
-    return mSizeInMemory / (mSizePerElement * sizeof(float));
+    return m_sizeInMemory / (m_sizePerElement * sizeof(float));
 }
 
 /***
@@ -31,6 +31,6 @@ unsigned int Acryl::VertexBufferObject::getVerticeAmount() const {
  */
 void Acryl::VertexBufferObject::bindVertexAttribArray(GLuint location) const {
     glEnableVertexAttribArray(location);
-    glBindBuffer(GL_ARRAY_BUFFER, mVBO);
-    glVertexAttribPointer(location, mSizePerElement, GL_FLOAT, GL_FALSE, 0, nullptr);
+    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+    glVertexAttribPointer(location, m_sizePerElement, GL_FLOAT, GL_FALSE, 0, nullptr);
 }

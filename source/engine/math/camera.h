@@ -17,14 +17,14 @@ enum class CameraType : char {
 
 class Camera {
 protected:
-    const CameraType mCameraType;
-    float mClipNear, mClipFar, mFov, mWidth, mHeigth;
-    glm::mat4 mProjection, mView;
-    Transformation mTransformation;
+    const CameraType m_cameraType;
+    float m_clipNear, m_clipFar, m_fov, m_width, m_height;
+    glm::mat4 m_projection, m_view;
+    Transformation m_transformation;
 
 public:
     Camera(const CameraType& type, float near, float far, float fov, const Transformation& transformation, const Window& window);
-    Camera(const CameraType& type, float near, float far, float fov, const Transformation& transformation, int width, int heigth);
+    Camera(const CameraType& type, float near, float far, float fov, const Transformation& transformation, int width, int height);
 
     void updateMatrices();
 

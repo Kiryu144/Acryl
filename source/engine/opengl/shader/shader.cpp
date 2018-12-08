@@ -15,22 +15,22 @@ GLuint Shader::lastBoundProgramID = 0;
 Shader::Shader(const std::string& vertex, const std::string& fragment, bool isSource) {
     if(!isSource){ //A path is provided
         try{
-            readFileToBuffer(vertex, mVertexShader);
+            readFileToBuffer(vertex, m_vertexShader);
         }catch(const std::ifstream::failure& e){
             std::cerr << "Could not read vertex file " << vertex << std::endl;
         }
 
         try{
-            readFileToBuffer(fragment, mFragmentShader);
+            readFileToBuffer(fragment, m_fragmentShader);
         }catch(const std::ifstream::failure& e){
             std::cerr << "Could not read fragment file " << vertex << std::endl;
         }
     }else{
-        mVertexShader = vertex;
-        mFragmentShader = fragment;
+        m_vertexShader = vertex;
+        m_fragmentShader = fragment;
     }
 
-    mProgramID = compileAndLink();
+    m_programID = compileAndLink();
     cacheUniformLocations();
 }
 
@@ -43,29 +43,29 @@ Shader::Shader(const std::string& vertex, const std::string& fragment, bool isSo
 Shader::Shader(const std::string& vertex, const std::string& fragment, const std::string& geometry, bool isSource) {
     if(!isSource){ //A path is provided
         try{
-            readFileToBuffer(vertex, mVertexShader);
+            readFileToBuffer(vertex, m_vertexShader);
         }catch(const std::ifstream::failure& e){
             std::cerr << "Could not read vertex file " << vertex << std::endl;
         }
 
         try{
-            readFileToBuffer(fragment, mFragmentShader);
+            readFileToBuffer(fragment, m_fragmentShader);
         }catch(const std::ifstream::failure& e){
             std::cerr << "Could not read fragment file " << vertex << std::endl;
         }
 
         try{
-            readFileToBuffer(geometry, mGeometryShader);
+            readFileToBuffer(geometry, m_geometryShader);
         }catch(const std::ifstream::failure& e){
             std::cerr << "Could not read geometry file " << vertex << std::endl;
         }
     }else{
-        mVertexShader = vertex;
-        mFragmentShader = fragment;
-        mGeometryShader = geometry;
+        m_vertexShader = vertex;
+        m_fragmentShader = fragment;
+        m_geometryShader = geometry;
     }
 
-    mProgramID = compileAndLink();
+    m_programID = compileAndLink();
     cacheUniformLocations();
 }
 
@@ -165,9 +165,9 @@ GLuint Shader::linkShader(GLuint vertex, GLuint fragment, GLuint geometry) const
  * @return The programID supplied by the GPU
  */
 GLuint Shader::compileAndLink() const {
-    GLuint vertexShader   = (!mVertexShader.empty())   ? compileShader(GL_VERTEX_SHADER,   mVertexShader)   : 0;
-    GLuint fragmentShader = (!mFragmentShader.empty()) ? compileShader(GL_FRAGMENT_SHADER, mFragmentShader) : 0;
-    GLuint geometryShader = (!mGeometryShader.empty()) ? compileShader(GL_GEOMETRY_SHADER, mGeometryShader) : 0;
+    GLuint vertexShader   = (!m_vertexShader.empty())   ? compileShader(GL_VERTEX_SHADER,   m_vertexShader)   : 0;
+    GLuint fragmentShader = (!m_fragmentShader.empty()) ? compileShader(GL_FRAGMENT_SHADER, m_fragmentShader) : 0;
+    GLuint geometryShader = (!m_geometryShader.empty()) ? compileShader(GL_GEOMETRY_SHADER, m_geometryShader) : 0;
 
     return linkShader(vertexShader, fragmentShader, geometryShader);
 }
@@ -177,15 +177,15 @@ GLuint Shader::compileAndLink() const {
  */
 void Shader::cacheUniformLocations() {
     GLint amount;
-    glGetProgramiv(mProgramID, GL_ACTIVE_UNIFORMS, &amount);
+    glGetProgramiv(m_programID, GL_ACTIVE_UNIFORMS, &amount);
 
     for (GLuint i = 0; i < amount; i++) {
         char* name = new char[16];
         GLsizei lenght;
         GLint size;
         GLenum type;
-        glGetActiveUniform(mProgramID, i, 16, &lenght, &size, &type, name);
-        mUniformLocations.insert(std::pair<std::string, GLuint>(std::string(name), i));
+        glGetActiveUniform(m_programID, i, 16, &lenght, &size, &type, name);
+        m_uniformLocations.insert(std::pair<std::string, GLuint>(std::string(name), i));
     }
 }
 
@@ -193,14 +193,14 @@ void Shader::cacheUniformLocations() {
  * @brief Binds the shader if needed
  */
 void Shader::bindProgram() const {
-    if(lastBoundProgramID != mProgramID){
-        glUseProgram(mProgramID);
-        lastBoundProgramID = mProgramID;
+    if(lastBoundProgramID != m_programID){
+        glUseProgram(m_programID);
+        lastBoundProgramID = m_programID;
     }
 }
 
 GLuint Shader::getProgramID() const {
-    return mProgramID;
+    return m_programID;
 }
 
 
@@ -211,7 +211,7 @@ GLuint Shader::getProgramID() const {
  */
 void Shader::setUniform(const std::string& uniform, GLint value) const {
     bindProgram();
-    glUniform1i(mUniformLocations.at(uniform), value);
+    glUniform1i(m_uniformLocations.at(uniform), value);
 }
 
 /***
@@ -221,7 +221,7 @@ void Shader::setUniform(const std::string& uniform, GLint value) const {
  */
 void Shader::setUniform(const std::string& uniform, GLuint value) const {
     bindProgram();
-    glUniform1ui(mUniformLocations.at(uniform), value);
+    glUniform1ui(m_uniformLocations.at(uniform), value);
 }
 
 /***
@@ -231,7 +231,7 @@ void Shader::setUniform(const std::string& uniform, GLuint value) const {
  */
 void Shader::setUniform(const std::string& uniform, GLfloat value) const {
     bindProgram();
-    glUniform1f(mUniformLocations.at(uniform), value);
+    glUniform1f(m_uniformLocations.at(uniform), value);
 }
 
 /***
@@ -241,7 +241,7 @@ void Shader::setUniform(const std::string& uniform, GLfloat value) const {
  */
 void Shader::setUniform(const std::string& uniform, GLdouble value) const {
     bindProgram();
-    glUniform1d(mUniformLocations.at(uniform), value);
+    glUniform1d(m_uniformLocations.at(uniform), value);
 }
 
 /***
@@ -251,7 +251,7 @@ void Shader::setUniform(const std::string& uniform, GLdouble value) const {
  */
 void Shader::setUniform(const std::string& uniform, const glm::vec2& value) const {
     bindProgram();
-    glUniform2f(mUniformLocations.at(uniform), value.x, value.y);
+    glUniform2f(m_uniformLocations.at(uniform), value.x, value.y);
 }
 
 /***
@@ -261,7 +261,7 @@ void Shader::setUniform(const std::string& uniform, const glm::vec2& value) cons
  */
 void Shader::setUniform(const std::string& uniform, const glm::vec3& value) const {
     bindProgram();
-    glUniform3f(mUniformLocations.at(uniform), value.x, value.y, value.z);
+    glUniform3f(m_uniformLocations.at(uniform), value.x, value.y, value.z);
 }
 
 /***
@@ -271,7 +271,7 @@ void Shader::setUniform(const std::string& uniform, const glm::vec3& value) cons
  */
 void Shader::setUniform(const std::string& uniform, const glm::vec4& value) const {
     bindProgram();
-    glUniform4f(mUniformLocations.at(uniform), value.r, value.g, value.b, value.a);
+    glUniform4f(m_uniformLocations.at(uniform), value.r, value.g, value.b, value.a);
 }
 
 /***
@@ -281,7 +281,7 @@ void Shader::setUniform(const std::string& uniform, const glm::vec4& value) cons
  */
 void Shader::setUniform(const std::string& uniform, const glm::mat4x4& value) const {
     bindProgram();
-    glUniformMatrix4fv(mUniformLocations.at(uniform), 1, GL_FALSE, &value[0][0]);
+    glUniformMatrix4fv(m_uniformLocations.at(uniform), 1, GL_FALSE, &value[0][0]);
 }
 
 

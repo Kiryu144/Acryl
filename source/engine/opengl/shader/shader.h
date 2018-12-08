@@ -19,12 +19,12 @@ class Shader {
 private:
     static GLuint lastBoundProgramID;
 
-    std::string mVertexShader;
-    std::string mFragmentShader;
-    std::string mGeometryShader;
-    GLuint mProgramID;
+    std::string m_vertexShader;
+    std::string m_fragmentShader;
+    std::string m_geometryShader;
+    GLuint m_programID;
 
-    std::map<std::string, GLuint> mUniformLocations;
+    std::map<std::string, GLuint> m_uniformLocations;
 
     GLuint compileAndLink() const;
     GLuint compileShader(GLenum type, const std::string& src) const;

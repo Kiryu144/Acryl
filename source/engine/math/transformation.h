@@ -19,11 +19,11 @@ enum class TransformationChange : char {
 
 class Transformation {
 private:
-    glm::vec3 mPosition;
-    glm::vec3 mRotation;
-    glm::vec3 mScale;
+    glm::vec3 m_position;
+    glm::vec3 m_rotation;
+    glm::vec3 m_scale;
 
-    glm::mat4 mMatrix;
+    glm::mat4 m_matrix;
 
     void calculateModelMatrix();
 public:
