@@ -17,6 +17,10 @@ Acryl::VertexBufferObject::~VertexBufferObject() {
     glDeleteBuffers(1, &mVBO);
 }
 
+/***
+ * @brief Calculates the amount of vertices present in the VBO
+ * @return The number of vertices present
+ */
 unsigned int Acryl::VertexBufferObject::getVerticeAmount() const {
     return mSizeInMemory / (mSizePerElement * sizeof(float));
 }
