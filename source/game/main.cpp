@@ -1,9 +1,13 @@
+#define ACRYL_STRING_START 'R"('
+#define ACRYL_STRING_END ')"'
+
 #include <ctime>
 #define GLM_ENABLE_EXPERIMENTAL
 #include <GLM/gtx/string_cast.hpp>
 
 #include "../engine/window/window.h"
 #include "../engine/opengl/shader/shader.h"
+#include "../engine/opengl/shader/defaultshader.h"
 #include "../engine/opengl/vbo/vertexbufferobject.h"
 #include "../engine/opengl/texture/texture.h"
 #include "../engine/pixelfield/pixelfield.h"
@@ -16,6 +20,10 @@ int main(int argc, char** argv) {
 
     Acryl::Shader basic("basic.vert", "basic.frag", false);
     Acryl::Shader texture("basic_2d.vert", "basic_2d.frag", false);
+
+    Acryl::DefaultShader::init();
+
+    Acryl::DefaultShader::SolidColor3D;
 
     glm::vec2 plane[] = {
             glm::vec2(0, 0),
