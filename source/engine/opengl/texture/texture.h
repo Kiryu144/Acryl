@@ -24,6 +24,7 @@ public:
     ~Texture();
 
     Texture(const Texture& texture) = delete; //TODO: Implement deep copy
+    Texture& operator=(const Texture& texture) = delete;
 
     void bindTexture(GLuint location) const;
 
