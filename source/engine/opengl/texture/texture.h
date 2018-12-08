@@ -9,18 +9,21 @@
 #include <string>
 #include <stdexcept>
 
+#include "../../pixelfield/pixelfield.h"
+
 namespace Acryl {
 
 class Texture {
 private:
     GLuint mTextID;
-    glm::vec2 size;
+    glm::vec2 mSize;
 
     void uploadImageData(void* imageData, unsigned int width, unsigned int heigth, GLenum format);
 public:
     Texture();
     Texture(const std::string& imagePath);
     Texture(void* imageData, unsigned int width, unsigned int heigth, GLenum format);
+    Texture(PixelField& pixelField);
     ~Texture();
 
     Texture(const Texture& texture) = delete; //TODO: Implement deep copy

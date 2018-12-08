@@ -19,7 +19,7 @@ set(SOURCE_FILES
     source/engine/opengl/shader/shader.cpp
     source/engine/opengl/vbo/vertexbufferobject.cpp
     source/engine/opengl/vbo/vertexbufferobject.cpp
-        source/engine/opengl/texture/texture.cpp source/engine/opengl/texture/texture.h source/engine/math/transformation.cpp source/engine/math/transformation.h source/engine/math/camera.cpp source/engine/math/camera.h)
+        source/engine/opengl/texture/texture.cpp source/engine/opengl/texture/texture.h source/engine/math/transformation.cpp source/engine/math/transformation.h source/engine/math/camera.cpp source/engine/math/camera.h source/engine/pixelfield/pixelfield.cpp source/engine/pixelfield/pixelfield.h)
 #file(GLOB_RECURSE SOURCE_FILES source/*)
 
 add_executable(Acryl ${SOURCE_FILES})

@@ -34,6 +34,10 @@ Texture::Texture(void* imageData, unsigned int width, unsigned int heigth, GLenu
     uploadImageData(imageData, width, heigth, format);
 }
 
+Texture::Texture(PixelField& pixelField)
+    : Texture(pixelField.getData(), pixelField.getWidth(), pixelField.getHeight(), GL_RGBA) {
+}
+
 Texture::~Texture() {
     glDeleteTextures(1, &mTextID);
 }
@@ -54,8 +58,8 @@ void Texture::uploadImageData(void* imageData, unsigned int width, unsigned int 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-    size.x = width;
-    size.y = heigth;
+    mSize.x = width;
+    mSize.y = heigth;
 }
 
 /**
@@ -72,8 +76,10 @@ GLuint Texture::getTextID() const {
 }
 
 const glm::vec2& Texture::getSize() const {
-    return size;
+    return mSize;
 }
+
+
 
 
 }
