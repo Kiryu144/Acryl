@@ -17,4 +17,6 @@
 #include "math/camera.h"
 #include "math/transformation.h"
 
+#include "renderer/tilemaprenderer.h"
+
 #endif

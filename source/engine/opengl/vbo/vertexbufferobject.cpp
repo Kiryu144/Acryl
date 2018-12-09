@@ -29,8 +29,11 @@ unsigned int Acryl::VertexBufferObject::getVerticeAmount() const {
  * @brief Binds the VBO to a vertex location for the shader
  * @param location The location to bind to
  */
-void Acryl::VertexBufferObject::bindVertexAttribArray(GLuint location) const {
+void Acryl::VertexBufferObject::bindVertexAttribArray(GLuint location, bool instanced) const {
     glEnableVertexAttribArray(location);
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
     glVertexAttribPointer(location, m_sizePerElement, GL_FLOAT, GL_FALSE, 0, nullptr);
+    if(instanced){
+        glVertexAttribDivisor(location, 1);
+    }
 }

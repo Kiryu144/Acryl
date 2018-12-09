@@ -18,7 +18,7 @@ public:
     VertexBufferObject(const VertexBufferObject& other) = delete;
     VertexBufferObject& operator=(const VertexBufferObject& other) = delete;
 
-    void bindVertexAttribArray(GLuint location) const;
+    void bindVertexAttribArray(GLuint location, bool instanced = false) const;
     unsigned int getVerticeAmount() const;
 };
 
