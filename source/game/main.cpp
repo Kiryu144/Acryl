@@ -2,17 +2,8 @@
 #define ACRYL_STRING_END ')"'
 
 #include <ctime>
-#define GLM_ENABLE_EXPERIMENTAL
-#include <GLM/gtx/string_cast.hpp>
-
-#include "../engine/window/window.h"
-#include "../engine/opengl/shader/shader.h"
-#include "../engine/opengl/shader/defaultshader.h"
-#include "../engine/opengl/vbo/vertexbufferobject.h"
-#include "../engine/opengl/texture/texture.h"
-#include "../engine/pixelfield/pixelfield.h"
-#include "../engine/math/transformation.h"
-#include "../engine/math/camera.h"
+#include <engine/acryl.h>
+#include <engine/defaults.h>
 
 int main(int argc, char** argv) {
     srand(time(0));
@@ -21,33 +12,7 @@ int main(int argc, char** argv) {
     Acryl::Shader basic("basic.vert", "basic.frag", false);
     Acryl::Shader texture("basic_2d.vert", "basic_2d.frag", false);
 
-    Acryl::DefaultShader::init();
-
-    Acryl::DefaultShader::SolidColor3D;
-
-    glm::vec2 plane[] = {
-            glm::vec2(0, 0),
-            glm::vec2(1, 0),
-            glm::vec2(0, 1),
-
-            glm::vec2(0, 1),
-            glm::vec2(1, 1),
-            glm::vec2(1, 0)
-    };
-
-    glm::vec2 plane_uv[] = {
-            glm::vec2(0, 0),
-            glm::vec2(1, 0),
-            glm::vec2(0, 1),
-
-            glm::vec2(0, 1),
-            glm::vec2(1, 1),
-            glm::vec2(1, 0)
-    };
-
-
-    Acryl::VertexBufferObject vertices(plane, 12*sizeof(float), 2);
-    Acryl::VertexBufferObject uv(plane_uv, 12*sizeof(float), 2);
+    Acryl::Defaults::init();
 
     Acryl::Transformation transformation(glm::vec3(0, 0, 0), glm::vec3(0), glm::vec3(200, 200, 0));
 
@@ -74,9 +39,9 @@ int main(int argc, char** argv) {
         anothertexture.bindTexture(0);
         texture.setUniform("sampler", anothertexture.getTextID());
         texture.setUniform("mvp", camera.getProjection() * camera.getView() * transformation.getMatrix());
-        vertices.bindVertexAttribArray(0);
-        uv.bindVertexAttribArray(1);
-        glDrawArrays(GL_TRIANGLES, 0, vertices.getVerticeAmount());
+        Acryl::Defaults::Plane_2D->bindVertexAttribArray(0);
+        Acryl::Defaults::Plane_2D_UV->bindVertexAttribArray(1);
+        glDrawArrays(GL_TRIANGLES, 0, Acryl::Defaults::Plane_2D->getVerticeAmount());
 
         window.swap();
     }
