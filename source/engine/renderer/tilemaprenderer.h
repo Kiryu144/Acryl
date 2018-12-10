@@ -16,7 +16,7 @@ private:
     Texture* m_textureAtlas;
     Texture* m_destinationTexture;
 
-    glm::mat4 m_mvp;
+    glm::mat4 m_modelMatrix;
 
     int m_elementsPerRow;
     int m_pixelPerElement;
@@ -27,7 +27,7 @@ public:
     TilemapRenderer(Texture* atlas, Texture* dest, int elementsPerRow, int tileSize);
 
     void render(float x, float y, int index);
-    void finalize();
+    void finalize(const Camera& camera);
 };
 
 }

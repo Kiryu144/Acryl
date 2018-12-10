@@ -1,3 +1,4 @@
+#include <vector>
 #include "shader.h"
 
 namespace Acryl {
@@ -141,17 +142,14 @@ GLuint Shader::linkShader(GLuint vertex, GLuint fragment, GLuint geometry) const
     glLinkProgram(programID);
 
     GLint isLinked = 0;
+    int infoLogLength;
     glGetProgramiv(programID, GL_LINK_STATUS, &isLinked);
-    if (isLinked == GL_FALSE) {
-        GLint logLenght;
-        std::string log;
+    glGetProgramiv(programID, GL_INFO_LOG_LENGTH, &infoLogLength);
+    if ( infoLogLength > 0 ){
+        std::vector<char> programErrorMessage(infoLogLength+1);
+        glGetProgramInfoLog(programID, infoLogLength, NULL, &programErrorMessage[0]);
 
-        glGetProgramiv(programID, GL_INFO_LOG_LENGTH, &logLenght);
-        log.reserve(logLenght);
-        glGetProgramInfoLog(programID, logLenght, &logLenght, &log[0]);
-        glDeleteProgram(programID);
-
-        throw std::invalid_argument("Could not link shaders!\n" + std::string(log));
+        throw std::invalid_argument("Could not link shaders!\n" + std::string(programErrorMessage.begin(), programErrorMessage.end()));
     }
 
     glDetachShader(programID, vertex);
@@ -189,6 +187,16 @@ void Shader::cacheUniformLocations() {
     }
 }
 
+GLuint Shader::getUniformLocation(const std::string& s) const {
+    auto it = m_uniformLocations.find(s);
+    if(it == m_uniformLocations.end()){
+        throw std::invalid_argument("Unknown uniform " + s + "!");
+    }else{
+        return it->second;
+    }
+}
+
+
 /**
  * @brief Binds the shader if needed
  */
@@ -211,7 +219,7 @@ GLuint Shader::getProgramID() const {
  */
 void Shader::setUniform(const std::string& uniform, GLint value) const {
     bindProgram();
-    glUniform1i(m_uniformLocations.at(uniform), value);
+    glUniform1i(getUniformLocation(uniform), value);
 }
 
 /***
@@ -221,7 +229,19 @@ void Shader::setUniform(const std::string& uniform, GLint value) const {
  */
 void Shader::setUniform(const std::string& uniform, GLuint value) const {
     bindProgram();
-    glUniform1ui(m_uniformLocations.at(uniform), value);
+    glUniform1ui(getUniformLocation(uniform), value);
+}
+
+
+void Shader::setUniform(const std::string& uniform, GLuint* values, size_t amount) const {
+    bindProgram();
+
+    GLuint loc = getUniformLocation(uniform + "[0]");
+    for(int i = 0; i < amount; i++){
+        glUniform1ui(loc+i, values[i]);
+        std::cout << values[i] << " "; //For debug
+    }
+    std::cout << std::endl; //For debug
 }
 
 /***
@@ -231,7 +251,7 @@ void Shader::setUniform(const std::string& uniform, GLuint value) const {
  */
 void Shader::setUniform(const std::string& uniform, GLfloat value) const {
     bindProgram();
-    glUniform1f(m_uniformLocations.at(uniform), value);
+    glUniform1f(getUniformLocation(uniform), value);
 }
 
 /***
@@ -241,7 +261,7 @@ void Shader::setUniform(const std::string& uniform, GLfloat value) const {
  */
 void Shader::setUniform(const std::string& uniform, GLdouble value) const {
     bindProgram();
-    glUniform1d(m_uniformLocations.at(uniform), value);
+    glUniform1d(getUniformLocation(uniform), value);
 }
 
 /***
@@ -251,7 +271,7 @@ void Shader::setUniform(const std::string& uniform, GLdouble value) const {
  */
 void Shader::setUniform(const std::string& uniform, const glm::vec2& value) const {
     bindProgram();
-    glUniform2f(m_uniformLocations.at(uniform), value.x, value.y);
+    glUniform2f(getUniformLocation(uniform), value.x, value.y);
 }
 
 /***
@@ -261,7 +281,7 @@ void Shader::setUniform(const std::string& uniform, const glm::vec2& value) cons
  */
 void Shader::setUniform(const std::string& uniform, const glm::vec3& value) const {
     bindProgram();
-    glUniform3f(m_uniformLocations.at(uniform), value.x, value.y, value.z);
+    glUniform3f(getUniformLocation(uniform), value.x, value.y, value.z);
 }
 
 /***
@@ -271,7 +291,7 @@ void Shader::setUniform(const std::string& uniform, const glm::vec3& value) cons
  */
 void Shader::setUniform(const std::string& uniform, const glm::vec4& value) const {
     bindProgram();
-    glUniform4f(m_uniformLocations.at(uniform), value.r, value.g, value.b, value.a);
+    glUniform4f(getUniformLocation(uniform), value.r, value.g, value.b, value.a);
 }
 
 /***
@@ -281,7 +301,7 @@ void Shader::setUniform(const std::string& uniform, const glm::vec4& value) cons
  */
 void Shader::setUniform(const std::string& uniform, const glm::mat4x4& value) const {
     bindProgram();
-    glUniformMatrix4fv(m_uniformLocations.at(uniform), 1, GL_FALSE, &value[0][0]);
+    glUniformMatrix4fv(getUniformLocation(uniform), 1, GL_FALSE, &value[0][0]);
 }
 
 

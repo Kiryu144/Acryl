@@ -6,16 +6,14 @@ TilemapRenderer::TilemapRenderer(Texture* atlas, Texture* dest, int elementsPerR
     : m_textureAtlas(atlas), m_destinationTexture(dest), m_elementsPerRow(elementsPerRow), m_pixelPerElement(atlas->getSize().x/elementsPerRow) {
     Acryl::Defaults::init();
     Transformation transformation = Transformation(glm::vec3(0), glm::vec3(0), glm::vec3(tileSize));
-    Acryl::Camera camera(Acryl::CameraType::ORTHOGRAPHIC, 0.0, 100.0, 40, Acryl::Transformation(glm::vec3(), glm::vec3(-180, 90, 0), glm::vec3()), 900, 600);
-    camera.updateMatrices();
-    m_mvp = camera.getProjection() * camera.getView() * transformation.getMatrix();
+    m_modelMatrix = transformation.getMatrix();
 }
 
 void TilemapRenderer::render(float x, float y, int index) {
     m_renderData.push_back(glm::vec3(x, y, index));
 }
 
-void TilemapRenderer::finalize() {
+void TilemapRenderer::finalize(const Camera& camera) {
     if(m_renderData.empty()){
         return;
     }
@@ -27,7 +25,7 @@ void TilemapRenderer::finalize() {
     m_textureAtlas->bindTexture(0);
 
     Acryl::Defaults::iTexture2D->setUniform("rowCount", float(m_elementsPerRow));
-    Acryl::Defaults::iTexture2D->setUniform("mvp", m_mvp);
+    Acryl::Defaults::iTexture2D->setUniform("mvp", camera.getProjection() * camera.getView() * m_modelMatrix);
 
     Acryl::Defaults::Plane_2D->bindVertexAttribArray(0);
     Acryl::Defaults::Plane_2D_UV->bindVertexAttribArray(1);

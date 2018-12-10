@@ -18,5 +18,6 @@
 #include "math/transformation.h"
 
 #include "renderer/tilemaprenderer.h"
+#include "renderer/framebufferrenderer.h"
 
 #endif
