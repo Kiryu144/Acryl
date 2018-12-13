@@ -7,6 +7,8 @@
 #include <GLEW/glew.h>
 #include <iostream>
 
+#include "../callbacks/listener.h"
+
 namespace Acryl{
 
 class Window {
@@ -27,7 +29,7 @@ public:
     unsigned int getWidth() const;
     unsigned int getHeigth() const;
     bool quitRequested() const;
-    void swap() const;
+    void swap();
 };
 
 }

@@ -29,6 +29,7 @@ Window::Window(const std::string& title, unsigned int width, unsigned int height
     GLenum err = glewInit();
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_BLEND );
+    SDL_GL_SetSwapInterval(0);
     //
 }
 
@@ -72,8 +73,40 @@ bool Window::quitRequested() const {
 /***
  * @brief Swaps the current drawing buffer
  */
-void Window::swap() const {
+void Window::swap() {
     SDL_GL_SwapWindow(m_sdlWindow);
+
+    int w, h;
+    SDL_GetWindowSize(m_sdlWindow, &w, &h);
+    if(w != m_width || h != m_height){
+        int oldW = m_width;
+        int oldH = m_height;
+
+        m_width = w;
+        m_height = h;
+
+        Listener::fire_WindowResize(this, oldW, oldH);
+    }
 }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

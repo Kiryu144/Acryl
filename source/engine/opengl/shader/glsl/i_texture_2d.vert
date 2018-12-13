@@ -10,7 +10,8 @@ uniform mat4 mvp;
 uniform float rowCount;
 
 void main() {
-    vec2 offset = vec2(mod(atlasData.z, rowCount)/rowCount, floor(atlasData.z / rowCount)/rowCount);
+    vec2 offset = vec2(mod(atlasData.z, rowCount)/rowCount, floor(int(atlasData.z) / rowCount)/rowCount);
+
 
     gl_Position = mvp * vec4(atlasData.x + vertice.x, atlasData.y + vertice.y, 0.0, 1.0);
     _uv = offset + (uv / vec2(rowCount));

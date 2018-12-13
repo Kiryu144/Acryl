@@ -11,7 +11,7 @@ link_directories(${PROJECT_SOURCE_DIR}/external/lib/SDL2/)
 link_directories(${PROJECT_SOURCE_DIR}/external/lib/GLEW/)
 
 set(SOURCE_FILES
-    source/game/main.cpp
+        source/main.cpp
     source/engine/window/window.h
     source/engine/window/window.cpp
     source/engine/util/util.h
@@ -32,7 +32,7 @@ set(SOURCE_FILES
     source/engine/defaults.h
     source/engine/renderer/tilemaprenderer.cpp
     source/engine/renderer/tilemaprenderer.h
-        source/engine/math/cameracontroller2d.cpp source/engine/math/cameracontroller2d.h source/engine/opengl/framebuffer/framebuffer.cpp source/engine/opengl/framebuffer/framebuffer.h source/engine/renderer/framebufferrenderer.cpp source/engine/renderer/framebufferrenderer.h)
+        source/engine/math/cameracontroller2d.cpp source/engine/math/cameracontroller2d.h source/engine/opengl/framebuffer/framebuffer.cpp source/engine/opengl/framebuffer/framebuffer.h source/engine/renderer/framebufferrenderer.cpp source/engine/renderer/framebufferrenderer.h source/engine/gamelogic/acrylgame.cpp source/engine/gamelogic/acrylgame.h  source/game/testgame.cpp source/game/testgame.h source/game/world/tileworld.cpp source/game/world/tileworld.h source/engine/callbacks/Listener.h source/engine/callbacks/listener.h source/engine/callbacks/listener.cpp source/game/entity/player.cpp source/game/entity/player.h)
 
 add_executable(acryl_bin ${SOURCE_FILES})
 target_link_libraries(acryl_bin glew32 mingw32 SDL2main SDL2 SDL2_image SDL2_ttf opengl32)

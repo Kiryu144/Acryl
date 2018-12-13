@@ -20,4 +20,6 @@
 #include "renderer/tilemaprenderer.h"
 #include "renderer/framebufferrenderer.h"
 
+#include "gamelogic/acrylgame.h"
+
 #endif
