@@ -7,6 +7,7 @@
 #include <GLEW/glew.h>
 #include <GLM/common.hpp>
 #include <GLM/vec2.hpp>
+#include <array>
 #include <GLM/vec3.hpp>
 #include <GLM/vec4.hpp>
 #include <GLM/mat4x4.hpp>
@@ -19,17 +20,18 @@ class Shader {
 private:
     static GLuint lastBoundProgramID;
 
-    std::string mVertexShader;
-    std::string mFragmentShader;
-    std::string mGeometryShader;
-    GLuint mProgramID;
+    std::string m_vertexShader;
+    std::string m_fragmentShader;
+    std::string m_geometryShader;
+    GLuint m_programID;
 
-    std::map<std::string, GLuint> mUniformLocations;
+    std::map<std::string, GLuint> m_uniformLocations;
 
     GLuint compileAndLink() const;
     GLuint compileShader(GLenum type, const std::string& src) const;
     GLuint linkShader(GLuint vertex, GLuint fragment, GLuint geometry = 0) const;
     void cacheUniformLocations();
+    GLuint getUniformLocation(const std::string& s) const;
 public:
     Shader(const std::string& vertex, const std::string& fragment, bool isSource = false);
     Shader(const std::string& vertex, const std::string& fragment, const std::string& geometry, bool isSource);
@@ -42,6 +44,7 @@ public:
 
     void setUniform(const std::string& uniform, GLint value) const;
     void setUniform(const std::string& uniform, GLuint value) const;
+    void setUniform(const std::string& uniform, GLuint* values, size_t amount) const;
     void setUniform(const std::string& uniform, GLfloat value) const;
     void setUniform(const std::string& uniform, GLdouble value) const;
 

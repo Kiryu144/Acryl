@@ -8,16 +8,17 @@ namespace Acryl {
 
 class VertexBufferObject {
 private:
-    GLint mSizeInMemory;
-    GLuint mVBO;
-    GLint mSizePerElement;
+    GLint m_sizeInMemory;
+    GLuint m_vbo;
+    GLint m_sizePerElement;
 public:
     VertexBufferObject(void* data, GLint dataSize, GLint sizePerElement);
     ~VertexBufferObject();
 
     VertexBufferObject(const VertexBufferObject& other) = delete;
+    VertexBufferObject& operator=(const VertexBufferObject& other) = delete;
 
-    void bindVertexAttribArray(GLuint location) const;
+    void bindVertexAttribArray(GLuint location, bool instanced = false) const;
     unsigned int getVerticeAmount() const;
 };
 

@@ -7,17 +7,19 @@
 #include <GLEW/glew.h>
 #include <iostream>
 
+#include "../callbacks/listener.h"
+
 namespace Acryl{
 
 class Window {
 private:
-    std::string mWindowTitle;
-    unsigned int mWidth, mHeigth;
+    std::string m_windowTitle;
+    unsigned int m_width, m_height;
 
-    SDL_Window* mSdlWindow;
-    SDL_GLContext mContext;
+    SDL_Window* m_sdlWindow;
+    SDL_GLContext m_context;
 public:
-    Window(const std::string& title, unsigned int width = 900, unsigned int heigth = 600);
+    Window(const std::string& title, unsigned int width = 900, unsigned int height = 600);
     ~Window();
 
     void hide();
@@ -27,7 +29,7 @@ public:
     unsigned int getWidth() const;
     unsigned int getHeigth() const;
     bool quitRequested() const;
-    void swap() const;
+    void swap();
 };
 
 }
